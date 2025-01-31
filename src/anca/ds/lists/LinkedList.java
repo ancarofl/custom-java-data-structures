@@ -1,6 +1,6 @@
 package anca.ds.lists;
 
-public class LinkedList {
+public class LinkedList implements ListInterface {
     public class Node {
         int value;
         Node next;
@@ -12,13 +12,19 @@ public class LinkedList {
 
     Node head;
     Node tail;
-    int length;
+    int size;
 
     public LinkedList(int value) {
         head = tail = new Node(value);
-        length = 1;
+        size = 1;
     }
 
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
     public void printList() {
         System.out.println("The values in the linked list are: ");
         Node temp = head;
