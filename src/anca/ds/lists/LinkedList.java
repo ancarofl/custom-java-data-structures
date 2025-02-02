@@ -47,13 +47,23 @@ public class LinkedList implements ListInterface {
 
         Node firstNode = head;
         if (size == 1) {
-            head = tail = head.next;
-            size--;
+            head = tail = null;
         }
         else {
             head = head.next;
-            size--;
         }
+
+        size--;
+        firstNode.next = null;
+        /* If we skip the step above,
+        the removed node might still hold a reference to the list,
+        potentially causing memory leaks in long-running applications.
+        This isn't strictly necessary in Java, but it helps the Garbage Collector.
+        It's also clearer this way that
+        this node has been disconnected from the LL.
+        Furthermore, if we still had a note which points to the (new) first node
+        of the LL, we'd technically have access and
+        could traverse the LL through the solitary node. */
         return firstNode;
     }
 

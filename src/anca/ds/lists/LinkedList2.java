@@ -16,7 +16,7 @@ public class LinkedList2 implements ListInterface {
     @Override
     public void add(int value) {
         Node newNode = new Node(value);
-         if (head == null) { // if size==0 also works
+         if (head == null) {
             head = tail = newNode;
          }
          else {
@@ -61,7 +61,6 @@ public class LinkedList2 implements ListInterface {
     @Override
     public Node removeLast() {
         // Case 1: Empty list
-        // Case 2 would also handle this case, if it wasn't handled here first.
         if (head == null) {
             return null;
         }
@@ -70,15 +69,11 @@ public class LinkedList2 implements ListInterface {
         // Case 2: List has only one element
         if (head == tail) {
             head = tail = null;
-            size = 0; // or size--
+            size--;
             return temp;
         }
 
         // Case 3: List has more than one element
-        /* while (temp.next.next != null) {
-            temp = temp.next;
-        } */
-        // Slightly more readable and 1 less operation. Both find the second to last node
         while (temp.next != tail) {
             temp = temp.next;
         }
