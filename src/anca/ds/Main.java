@@ -29,8 +29,29 @@ public class Main {
         emptyLL.add(2);
         emptyLL.add(4);
         emptyLL.add(6);
+        emptyLL.add(8);
         emptyLL.printList();
 
-        System.out.println("Removed node with value: " + emptyLL.removeLast().value);
+        System.out.println("Removed node with value: " + emptyLL.removeLast().getValue());
+        emptyLL.printList();
+
+        LinkedList ll3 = new LinkedList();
+        ll3.printList();
+
+        ll3.addFirst(100);
+        ll3.printList();
+
+        ll3.addFirst(300);
+        ll3.addFirst(200);
+        ll3.printList();
+
+        System.out.println("Removed node with value: " + ll3.removeFirst().getValue());
+        ll3.printList();
+
+        System.out.println("Removed node with value: " + ll3.removeFirst().getValue());
+        ll3.printList();
+
+        System.out.println("Removed node with value: " + ll3.removeFirst().getValue());
+        ll3.printList();
     }
 }

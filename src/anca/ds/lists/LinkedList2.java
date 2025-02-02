@@ -1,22 +1,22 @@
 package anca.ds.lists;
 
-// This LL implementation uses size to handle edge cases
-public class LinkedList implements ListInterface {
+// This LL implementation uses head & tail to handle edge cases
+public class LinkedList2 implements ListInterface {
     private Node head;
     private Node tail;
     private int size;
 
-    public LinkedList(int value) {
+    public LinkedList2(int value) {
         head = tail = new Node(value);
         size = 1;
     }
 
-    public LinkedList() {};
+    public LinkedList2() {};
 
     @Override
     public void add(int value) {
         Node newNode = new Node(value);
-         if (size == 0) {
+         if (head == null) { // if size==0 also works
             head = tail = newNode;
          }
          else {
@@ -29,7 +29,7 @@ public class LinkedList implements ListInterface {
     @Override
     public void addFirst(int value) {
         Node newNode = new Node(value);
-        if (size == 0) {
+        if (head == null) {
             head = tail = newNode;
         }
         else {
@@ -41,12 +41,12 @@ public class LinkedList implements ListInterface {
 
     @Override
     public Node removeFirst() {
-        if (size == 0) {
+        if (head == null) {
             return null;
         }
 
         Node firstNode = head;
-        if (size == 1) {
+        if (head == tail) {
             head = tail = head.next;
             size--;
         }
@@ -60,19 +60,15 @@ public class LinkedList implements ListInterface {
 
     @Override
     public Node removeLast() {
-        // Case 1: Empty list.
-        // If checking it by checking if head == tail, case 2 would also technically handle this case.
-        if (size == 0) { // or head == null
+        // Case 1: Empty list
+        // Case 2 would also handle this case, if it wasn't handled here first.
+        if (head == null) {
             return null;
         }
 
         Node temp = head;
         // Case 2: List has only one element
-        if (size == 1) {
-            /* Or if (head == tail) or if(temp.next) == null
-            Checking size for edge cases is clearer for this custom implementation.
-            Not sure if it's better, and it's not consistent with the case 3 check.
-            On the other hand, by just checking head == tail we would be checking for both case 1 and 2. */
+        if (head == tail) {
             head = tail = null;
             size = 0; // or size--
             return temp;
