@@ -26,12 +26,13 @@ public class LinkedList implements ListInterface {
 
     @Override
     public void printList() {
-        System.out.println("The values in the linked list are: ");
+        System.out.print("Linked List: [");
         Node temp = head;
         while (temp != null) {
             System.out.print(temp.value + " -> ");
             temp = temp.next;
         }
-        System.out.println("null");
+        System.out.print("null");
+        System.out.println("]");
     }
 }
