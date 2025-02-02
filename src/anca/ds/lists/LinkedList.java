@@ -19,33 +19,41 @@ public class LinkedList implements ListInterface {
         size = 1;
     }
 
+    public LinkedList() {};
+
     @Override
     public void add(int value) {
         Node newNode = new Node(value);
-        // Because of my constructor the if branch would never be accessed,
-        // aka an empty LL cannot exist in the current implementation
-        /* if (head == null) { // if size==0 also works
+         if (head == null) { // if size==0 also works
             head = tail = newNode;
-        } else {
-            tail.next = newNode;
-            tail = newNode;
-        } */
-        // So this is enough
-        tail.next = newNode;
-        tail = newNode;
-        size++;
+         }
+         else {
+             tail.next = newNode;
+             tail = newNode;
+         }
+         size++;
     }
 
     @Override
     public void removeLast() {
-        // Case 1: List has only one element
-        if (head == tail) { // or size==0, or temp.next == null
+        // Case 1: Empty list.
+        // If checking it by checking if head == tail, case 2 would also technically handle this case.
+        if (size == 0) { // or head == null
+            return;
+        }
+
+        // Case 2: List has only one element
+        if (size == 1) {
+            /* Or if (head == tail) or if(temp.next) == null
+            Checking size for edge cases is clearer for this custom implementation.
+            Not sure if it's better, and it's not consistent with the case 3 check.
+            On the other hand, by just checking head == tail we would be checking for both case 1 and 2. */
             head = tail = null;
             size = 0; // or size--
             return;
         }
 
-        // Case 2: List has more than one element
+        // Case 3: List has more than one element
         Node temp = head;
         /* while (temp.next.next != null) {
             temp = temp.next;
