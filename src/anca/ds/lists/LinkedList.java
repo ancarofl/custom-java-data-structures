@@ -10,9 +10,9 @@ public class LinkedList implements ListInterface {
         }
     }
 
-    Node head;
-    Node tail;
-    int size;
+    private Node head;
+    private Node tail;
+    private int size;
 
     public LinkedList(int value) {
         head = tail = new Node(value);
