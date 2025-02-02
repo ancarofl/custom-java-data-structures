@@ -27,10 +27,10 @@ public class Main {
         emptyLL.printList();
 
         emptyLL.add(2);
+        emptyLL.add(4);
+        emptyLL.add(6);
         emptyLL.printList();
 
-        emptyLL.removeLast();
-        emptyLL.printList();
-
+        System.out.println("Removed node with value: " + emptyLL.removeLast().value);
     }
 }

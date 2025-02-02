@@ -2,8 +2,8 @@ package anca.ds.lists;
 
 public class LinkedList implements ListInterface {
     public class Node {
-        int value;
-        Node next;
+        public int value;
+        public Node next;
 
         Node(int value) {
             this.value = value;
@@ -35,13 +35,14 @@ public class LinkedList implements ListInterface {
     }
 
     @Override
-    public void removeLast() {
+    public Node removeLast() {
         // Case 1: Empty list.
         // If checking it by checking if head == tail, case 2 would also technically handle this case.
         if (size == 0) { // or head == null
-            return;
+            return null;
         }
 
+        Node temp = head;
         // Case 2: List has only one element
         if (size == 1) {
             /* Or if (head == tail) or if(temp.next) == null
@@ -50,11 +51,10 @@ public class LinkedList implements ListInterface {
             On the other hand, by just checking head == tail we would be checking for both case 1 and 2. */
             head = tail = null;
             size = 0; // or size--
-            return;
+            return temp;
         }
 
         // Case 3: List has more than one element
-        Node temp = head;
         /* while (temp.next.next != null) {
             temp = temp.next;
         } */
@@ -63,10 +63,16 @@ public class LinkedList implements ListInterface {
             temp = temp.next;
         }
 
-        // Update tail to the second to last node and remove the last node
+        // Save the previous last node to return it
+        Node previousTail = tail;
+
+        // Update tail to the second to last node
         tail = temp;
         tail.next = null;
         size--;
+
+        // Return the previous last node
+        return previousTail;
     }
 
     @Override

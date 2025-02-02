@@ -5,7 +5,7 @@ public interface ListInterface {
     // void addFirst(int value); // aka prepend
     // void remove();
     // void removeFirst();
-    void removeLast();
+    LinkedList.Node removeLast();
     // boolean contains(int value);
     int size();
     // boolean isEmpty();
