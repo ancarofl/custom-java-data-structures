@@ -41,12 +41,12 @@ public class LinkedList implements ListInterface {
 
     @Override
     public Node removeFirst() {
-        if (size == 0) {
+        if (head == null) {
             return null;
         }
 
         Node firstNode = head;
-        if (size == 1) {
+        if (head == tail) {
             head = tail = null;
         }
         else {
@@ -70,19 +70,14 @@ public class LinkedList implements ListInterface {
 
     @Override
     public Node removeLast() {
-        // Case 1: Empty list.
-        // If checking it by checking if head == tail, case 2 would also technically handle this case.
-        if (size == 0) { // or head == null
+        // Case 1: Empty list
+        if (head == null) {
             return null;
         }
 
         Node temp = head;
-        // Case 2: List has only one element
-        if (size == 1) {
-            /* Or if (head == tail) or if(temp.next) == null
-            Checking size for edge cases is clearer for this custom implementation.
-            Not sure if it's better, and it's not consistent with the case 3 check.
-            On the other hand, by just checking head == tail we would be checking for both case 1 and 2. */
+        // Case 2: List has only one element. This would also handle case 1 if it wasn't already handled
+        if (head == tail) {
             head = tail = null;
             size = 0; // or size--
             return temp;
@@ -107,6 +102,26 @@ public class LinkedList implements ListInterface {
 
         // Return the previous last node
         return previousTail;
+    }
+
+    @Override
+    public Node get(int index) {
+        // Validate that the index isn't out of bounds
+        if (index < 0 || index >= size) { // or index > size - 1
+            return null;
+        }
+
+        // Fast access to tail
+        if (index == size - 1) {
+            return tail;
+        }
+
+        Node temp = head;
+        for(int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+
+        return temp;
     }
 
     @Override

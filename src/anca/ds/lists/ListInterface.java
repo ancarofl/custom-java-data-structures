@@ -6,6 +6,8 @@ public interface ListInterface {
     // void remove();
     Node removeFirst();
     Node removeLast();
+    Node get(int index);
+
     // boolean contains(int value);
     int size();
     // boolean isEmpty();

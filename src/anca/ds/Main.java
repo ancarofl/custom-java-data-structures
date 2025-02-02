@@ -1,6 +1,7 @@
 package anca.ds;
 
 import anca.ds.lists.LinkedList;
+import anca.ds.lists.Node;
 
 public class Main {
     public static void main(String[] args) {
@@ -53,5 +54,20 @@ public class Main {
 
         System.out.println("Removed node with value: " + ll3.removeFirst().getValue());
         ll3.printList();
+
+        LinkedList ll4 = new LinkedList(60);
+        ll4.add(61); ll4.add(62); ll4.add(63);
+        ll4.printList();
+
+        System.out.println(ll4.get(0).getValue());
+        System.out.println(ll4.get(2).getValue());
+        System.out.println(ll4.get(1).getValue());
+        System.out.println(ll4.get(3).getValue());
+        Node node = ll4.get(10);
+        System.out.println(node != null ? node.getValue() : null);
+        node = ll4.get(-4);
+        System.out.println(node != null ? node.getValue() : null);
+        node = ll4.get(4);
+        System.out.println(node != null ? node.getValue() : null);
     }
 }
