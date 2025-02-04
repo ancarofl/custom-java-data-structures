@@ -16,7 +16,7 @@ public class LinkedList implements ListInterface {
     @Override
     public void add(int value) {
         Node newNode = new Node(value);
-         if (size == 0) {
+         if (head == null) {
             head = tail = newNode;
          }
          else {
@@ -29,7 +29,7 @@ public class LinkedList implements ListInterface {
     @Override
     public void addFirst(int value) {
         Node newNode = new Node(value);
-        if (size == 0) {
+        if (head == null) {
             head = tail = newNode;
         }
         else {
@@ -79,7 +79,7 @@ public class LinkedList implements ListInterface {
         // Case 2: List has only one element. This would also handle case 1 if it wasn't already handled
         if (head == tail) {
             head = tail = null;
-            size = 0; // or size--
+            size--;
             return temp;
         }
 
@@ -87,7 +87,9 @@ public class LinkedList implements ListInterface {
         /* while (temp.next.next != null) {
             temp = temp.next;
         } */
-        // Slightly more readable and 1 less operation. Both find the second to last node
+        /* Slightly more readable and 1 less operation. Both find the second to last node.
+        Temp.next can never be null because the while stops before that happens.
+        It could only be null in a 1 element list, which is already handled in case 2. */
         while (temp.next != tail) {
             temp = temp.next;
         }
@@ -102,6 +104,34 @@ public class LinkedList implements ListInterface {
 
         // Return the previous last node
         return previousTail;
+    }
+
+    @Override
+    public Node remove(int index) {
+        if (index < 0 || index >= size) {
+            return null;
+        }
+
+        if (index == 0) {
+            return removeFirst();
+        }
+
+        if (index == size - 1) {
+            return removeLast();
+        }
+
+        /* Node beforeToRemove = head;
+        for (int i = 0; i < index - 1; i++) {
+            beforeToRemove = beforeToRemove.next;
+        }
+        Node toRemove = beforeToRemove.next; */
+
+        Node beforeToRemove = get(index-1);
+        Node toRemove = beforeToRemove.next;
+        beforeToRemove.next = toRemove.next;
+        toRemove.next = null;
+        size--;
+        return toRemove;
     }
 
     @Override
@@ -122,6 +152,133 @@ public class LinkedList implements ListInterface {
         }
 
         return temp;
+    }
+
+    // Replaces an item at a specific position in the list
+    @Override
+    public boolean set(int index, int value) {
+        // Validate that the index isn't out of bounds
+        if (index < 0 || index >= size) { // or index > size - 1
+            return false;
+        }
+
+        if (index == size - 1) {
+            tail.setValue(value);
+            return true;
+        }
+
+        Node current = head;
+        for(int i = 0; i < index; i++){
+            current = current.next;
+        }
+        current.setValue(value);
+
+        return true;
+    }
+
+    @Override
+    public boolean set2(int index, int value) {
+        Node currentNode = get(index);
+        if (currentNode != null) {
+            currentNode.setValue(value);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // Replaces an item at a specific position in the list and returns the value which was replaced
+    @Override
+    public int setAndReturn(int index, int value) {
+        // Validate that the index isn't out of bounds. What's a better way to deal with it?
+        if (index < 0 || index >= size) { // or index > size - 1
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index == size - 1) {
+            int prevValue = tail.getValue();
+            tail.setValue(value);
+            return prevValue;
+        }
+
+        Node current = head;
+        for(int i = 0; i < index ; i++){
+            current = current.next;
+        }
+        int prevValue = current.getValue();
+        current.setValue(value);
+
+        return prevValue;
+    }
+
+    @Override
+    public boolean insert(int index, int value) {
+        /* Out of bounds index. Note that unlike for other methods,
+        it's ok to have an index which is equal to the size,
+        aka 1 higher than existing LL index.
+        That just means we append an item. */
+        if (index < 0 || index > size) {
+            return false;
+        }
+
+        // Case 1: insert at the end OR to an empty list (index = 0, size = 0)
+        if (index == size) {
+            add(value);
+            return true;
+        }
+
+        /* Case 2: insert at the beginning (would also work for empty list, but it's handled in case 1).
+        It actually does not matter if we handle case 1 or case 2 first, aka
+        it does not matter which way we handle the empty list case, because add and addFirst are both O(1). */
+        if (index == 0) {
+            addFirst(value);
+            return true;
+        }
+        /* Size isn't increased for cases 1 and 2 cus it's handled by the called methods */
+
+        /* Case 3: the rest. The idea when inserting in the middle of a LL is that we need to know the node that will
+        come before the new node, as well as the node that will come after it, because we need to create links between those and the new node. */
+        Node current = head;
+        Node prev = null;
+        for (int i = 0;i < index; i++) {
+            prev = current;
+            current = current.next;
+        }
+        Node newNode = new Node(value);
+        prev.next = newNode;
+        newNode.next = current;
+
+        size++;
+        return true;
+    }
+
+    @Override
+    public boolean insert2(int index, int value) {
+        if (index < 0 || index > size) {
+            return false;
+        }
+
+        // Case 1: insert at the end
+        if (index == size) {
+            add(value);
+            return true;
+        }
+
+        // Case 2: insert at the beginning
+        if (index == 0) {
+            addFirst(value);
+            return true;
+        }
+
+        // Case 3: the rest
+        Node newNode = new Node(value);
+        Node prevNode = get(index-1);
+        // if (prevNode == null) return false; // pointless to add this check, because this would only happen if index is 0, which is handled
+        newNode.next = prevNode.next;
+        prevNode.next = newNode;
+        size++;
+        return true;
     }
 
     @Override

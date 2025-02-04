@@ -69,5 +69,61 @@ public class Main {
         System.out.println(node != null ? node.getValue() : null);
         node = ll4.get(4);
         System.out.println(node != null ? node.getValue() : null);
+
+        ll4.set(0, 1995);
+        ll4.printList();
+
+        System.out.println(ll4.setAndReturn(0, 2000));
+        ll4.printList();
+        System.out.println(ll4.setAndReturn(0, 1000));
+        ll4.printList();
+        System.out.println(ll4.setAndReturn(0, 5000));
+        ll4.printList();
+        System.out.println(ll4.setAndReturn(2, 10000));
+        ll4.printList();
+        System.out.println(ll4.setAndReturn(3, 20000));
+        ll4.printList();
+        /*System.out.println(ll4.setAndReturn(10, 50000));
+        ll4.printList();*/
+
+        ll4.set2(2, 30);
+        ll4.set2(0, 40);
+        ll4.set2(5, 60);
+        ll4.printList();
+
+        LinkedList ll5 = new LinkedList(1);
+        ll5.add(2);
+        ll5.add(3);
+        ll5.add(4);
+        ll5.add(5);
+        ll5.printList();
+        ll5.insert(4,4444);
+        ll5.printList();
+        ll5.insert(0,-10000);
+        ll5.printList();
+        ll5.insert(7,5555);
+        ll5.printList();
+        ll5.insert(10,11111);
+        ll5.printList();
+
+        LinkedList ll6 = new LinkedList(1995);
+        ll6.add(1996);
+        ll6.add(1994);
+        ll6.add(1967);
+        ll6.printList();
+
+        System.out.println(ll6.remove(0).getValue());
+        ll6.printList();
+        System.out.println(ll6.remove(3));
+        ll6.printList();
+        System.out.println(ll6.remove(2).getValue());
+        ll6.printList();
+
+        ll6.add(2996);
+        ll6.add(2994);
+        ll6.add(2967);
+        ll6.printList();
+        System.out.println(ll6.remove(3).getValue());
+        ll6.printList();
     }
 }
