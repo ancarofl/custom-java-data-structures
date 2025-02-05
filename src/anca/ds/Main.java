@@ -5,7 +5,8 @@ import anca.ds.lists.Node;
 
 public class Main {
     public static void main(String[] args) {
-        LinkedList ll = new LinkedList(11);
+        /* Start Linked List methods tests */
+        /*LinkedList ll = new LinkedList(11);
         ll.printList();
 
         ll.add(5);
@@ -83,8 +84,8 @@ public class Main {
         ll4.printList();
         System.out.println(ll4.setAndReturn(3, 20000));
         ll4.printList();
-        /*System.out.println(ll4.setAndReturn(10, 50000));
-        ll4.printList();*/
+        *//*System.out.println(ll4.setAndReturn(10, 50000));
+        ll4.printList();*//*
 
         ll4.set2(2, 30);
         ll4.set2(0, 40);
@@ -125,5 +126,27 @@ public class Main {
         ll6.printList();
         System.out.println(ll6.remove(3).getValue());
         ll6.printList();
+
+        ll6.reverse();
+        ll6.printList();
+        ll6.removeLast();
+        ll6.reverse();
+        ll6.printList();
+        ll6.removeFirst();
+        ll6.reverse();
+        ll6.printList();
+        ll6.remove(0);
+        ll6.reverse();
+        ll6.printList();*/
+        /* End Linked List methods tests */
+        LinkedList list = new LinkedList();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.printList();
+        list.reverse();
+        list.printList();
     }
 }

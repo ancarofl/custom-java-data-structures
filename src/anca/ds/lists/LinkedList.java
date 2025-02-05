@@ -176,7 +176,6 @@ public class LinkedList implements ListInterface {
         return true;
     }
 
-    @Override
     public boolean set2(int index, int value) {
         Node currentNode = get(index);
         if (currentNode != null) {
@@ -189,7 +188,6 @@ public class LinkedList implements ListInterface {
     }
 
     // Replaces an item at a specific position in the list and returns the value which was replaced
-    @Override
     public int setAndReturn(int index, int value) {
         // Validate that the index isn't out of bounds. What's a better way to deal with it?
         if (index < 0 || index >= size) { // or index > size - 1
@@ -253,7 +251,6 @@ public class LinkedList implements ListInterface {
         return true;
     }
 
-    @Override
     public boolean insert2(int index, int value) {
         if (index < 0 || index > size) {
             return false;
@@ -296,5 +293,89 @@ public class LinkedList implements ListInterface {
         }
         System.out.print("null");
         System.out.println("]");
+    }
+
+    @Override
+    public void reverse() {
+        // If 1 or fewer elements
+        if (head == tail) {
+            return;
+        }
+
+        // Reverse the links
+        Node temp = head;
+        Node prev = null;
+
+        while (temp != null) {
+            Node next = temp.next; // Only used here. The scope is clearer by declaring it here
+            temp.next = prev;
+            prev = temp;
+            temp = next;
+        }
+
+        // Switch head and tail
+        temp = head;
+        head = tail;
+        tail = temp;
+    }
+
+    /* This code works AS LONG as size is well maintained. But we use size in other methods too so
+    I don't really see an issue with relying on size.
+    It's not really the standard approach to this problem,
+    nor the easiest to understand, but I'm leaving it here as it does work.
+    */
+    public void reverse2() {
+        // Step 1 - if 1 or fewer elements, we don't need to do anything
+        if (size <= 1 ) {
+            return;
+        }
+
+        // Step 2 - reverse the arrows 1 by 1
+        Node temp = head;
+        Node prev = null;
+        Node next = temp.next;
+
+        for (int i = 0; i < size; i++) {
+            temp.next = prev;
+            /* If we reached the original last node, we just need to reverse the last arrow from it
+            to the next to last node, and we don't need to do the other steps anymore.
+            The last instruction would throw a NullPointException, because next is null at this point of the for.
+            It's a bit of mental gymnastics though.
+             */
+            if (temp != tail) {
+                prev = temp;
+                temp = next;
+                next = next.next;
+            }
+        }
+
+        // Step 3 - reverse head and tail
+        temp = head;
+        head = tail;
+        tail = temp;
+    }
+
+    public void reverse3() {
+        // Step 1 - if 1 or fewer elements, we don't need to do anything
+        if (size <= 1 ) {
+            return;
+        }
+
+        // Step 2 - reverse the arrows 1 by 1
+        Node temp = head;
+        Node prev = null;
+        Node next;
+        // Probably better as there's no additional check to avoid NPE needed
+        for (int i = 0; i < size; i++) {
+            next = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = next;
+        }
+
+        // Step 3 - reverse head and tail
+        temp = head;
+        head = tail;
+        tail = temp;
     }
 }

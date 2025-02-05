@@ -8,12 +8,12 @@ public interface ListInterface {
     Node remove(int index);
     Node get(int index);
     boolean set(int index, int value);
-    boolean set2(int index, int value);
     int setAndReturn(int index, int value);
     boolean insert(int index, int value);
-    boolean insert2(int index, int value);
     // boolean contains(int value);
     int size();
     // boolean isEmpty();
     void printList();
+    void reverse();
+
 }
